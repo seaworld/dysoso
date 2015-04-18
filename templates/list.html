@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <title>电影搜搜网_dysoso.com_提供电影的搜索服务</title>
+    <meta name="Keywords" content="电影，最新电影，最新电视剧,迅雷下载,电影搜索，电影排行榜,电影下载,电影大全"/>
+{% endblock header %}
+
+{% block main %}
+
+    {% block hfjieshao %}
+    {% endblock %}
+
+    {% if not  dylist %}
+        {% block hot_fenlei %}
+        {% endblock hot_fenlei %}
+    {% endif %}
+
+
+    {% for onedy in dylist %}
+        {% if forloop.counter0|divisibleby:"2" %}
+            <div class="row-fluid">
+        {% endif %}
+    <div class="span6">
+        <div class="span4">
+            <a href="/dy/{{ onedy.id }}.html">
+                <img src="{{ staticdebughost }}/static/film-pic/{{ onedy.image }}" class="img-polaroid"
+                     onerror="javascript:this.src='http://dysoso.com/static/png/load-error.jpg'"/>
+            </a>
+        </div>
+        <div class="span8">
+            <table class="table table-hover table-condensed table-bordered table-striped">
+                <tr>
+                    <td style="width:80px">名称</td>
+                    <td>{{ onedy.title|join:" " }}</td>
+                </tr>
+                {% if onedy.director %}
+                    <tr>
+                        <td>导演</td>
+                        <td>
+                            {% for one in onedy.director %}
+                                <a href="/search?kw={{ one }}">{{ one }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+               {% if onedy.cast %}
+                <tr>
+                    <td>主演</td>
+                    <td>
+                        {% for one in onedy.cast %}
+                            {% if forloop.index0 < 7  %}
+                            <a href="/search?kw={{ one }}">{{ one }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endif     %}
+                {% if onedy.writer %}
+                    <tr>
+                        <td>编剧</td>
+                        <td>{{ onedy.writer |join:" "}}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        {% if onedy.mtype %}
+                            {% for one in onedy.mtype %}
+                                <a href="/list/type?kw={{ one }}"><span class="label label-success">{{ one }}</span></a>
+                            {% endfor %}
+                        {% else %}
+                            未分类
+                        {% endif %}
+                    </td>
+                </tr>
+                {% if onedy.status %}
+                    <tr>
+                        <td>状态</td>
+                        <td>{{ onedy.status }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>国家/地区</td>
+                    <td>
+                        {% if onedy.country %}
+                            {% for one in onedy.country %}
+                                <a href="/list/country?kw={{ one }}">{{ one }}</a>
+                            {% endfor %}
+                        {% else %}
+                            地球
+                        {% endif %}
+                    </td>
+                </tr>
+                {% if onedy.year %}
+                    <tr>
+                        <td>上映时间</td>
+                        <td>{{ onedy.year }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>最后更新</td>
+                    <td>{{ onedy.updatetime|date:"o-m-d H:i" }}</td>
+                </tr>
+                {% if onedy.fromtype %}
+                    <tr>
+                        <td>来源</td>
+                        <td>{{ onedy.fromtype }}</td>
+                    </tr>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+    {% if not forloop.counter0|divisibleby:"2"  or  forloop.last %}
+        </div>
+    {% endif %}
+    {% endfor %}
+
+    <div class="pagination pagination-large pagination-centered">
+        <ul class="pager">
+            {% if pagenow <= 1 %}
+                <li class="disabled"><a>首页</a></li>
+            {% else %}
+                <li><a href="?{% if kw %}kw={{ kw }}&{% endif %}page=1">首页</a></li>
+            {% endif %}
+
+            {% for onepage in pagelist %}
+                {% if onepage == pagenow %}
+                    <li class="disabled"><a>{{ onepage }}</a></li>
+                {% else %}
+                    <li><a href="?{% if kw %}kw={{ kw }}&{% endif %}page={{ onepage }}">{{ onepage }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if pagenow >= pagecount %}
+                <li class="disabled"><a>尾页</a></li>
+            {% else %}
+                <li><a href="?{% if kw %}kw={{ kw }}&{% endif %}page={{ pagecount }}">尾页</a></li>
+            {% endif %}
+
+            <p class="text-success">{{ pagenow }}/{{ pagecount }}页</p>
+        </ul>
+    </div>
+{% endblock main %}

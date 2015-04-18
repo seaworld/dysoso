@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {% block header %}
+        <title>电影搜搜网，最新电影，最全电影，好看的电影，迅雷下载，高清下载</title>
+    {% endblock header %}
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    动态变换
+    -->
+    <link href="http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 1000px">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <a class="brand disable" href="/">电影搜搜网(dysoso.com)</a>
+            <ul class="nav">
+                <li><a href="/">首页</a></li>
+                <li><a href="/ph/playing.html">正在上映</a></li>
+                <li><a href="/ph/top100.html">Top100</a></li>
+                <li><a href="/type/dsj">电视剧</a></li>
+                <li><a href="/type/anim">动画</a></li>
+                <li><a href="/type/zongyi">综艺</a></li>
+                <li><a href="/type/3d">3D</a></li>
+                <li><a href="/type/yugao">预告</a></li>
+                <form class="navbar-search pull-left" action="/search">
+                    <input type="text" class="search-query" name="kw" placeholder="输入后回车">
+                </form>
+            </ul>
+        </div>
+    </div>
+    <!-- 横幅介绍 -->
+    {% block hfjieshao %}
+        <div class="well well-small">
+            <h2><p class="text-center">欢迎访问电影搜搜(<strong>dysoso</strong>)</p></h2>
+            <p class="text-right">提供电影搜索和推荐服务</p>
+        </div>
+    {% endblock hfjieshao %}
+
+    {% block hot_fenlei %}
+        <span> 热门分类：</span>
+        <a href="/list/type?kw=动作"><span class="label label-success">动作片</span></a>
+        <a href="/list/type?kw=喜剧"><span class="label label-success">喜剧片</span></a>
+        <a href="/list/type?kw=爱情"><span class="label label-success">爱情片</span></a>
+        <a href="/list/type?kw=科幻"><span class="label label-success">科幻片</span></a>
+        <a href="/list/type?kw=恐怖"><span class="label label-success">恐怖片</span></a>
+        <a href="/list/type?kw=剧情"><span class="label label-success">剧情片</span></a>
+        <a href="/list/type?kw=战争"><span class="label label-success">战争片</span></a>
+        <a href="/list/country?kw=中国"><span class="label label-success">国产片</span></a>
+        <a href="/list/country?kw=欧美"><span class="label label-success">欧美片</span></a>
+        <a href="/list/country?kw=日韩"><span class="label label-success">日韩片</span></a>
+
+        </br>
+        </br>
+        </br>
+    {% endblock hot_fenlei %}
+    {% block main %}
+    {% endblock main %}
+    {% block friend_link %}
+    {% endblock friend_link %}
+
+
+    <div id="footer">
+<br/>
+<script src="http://1.16im.com/page/s.php?s=7702&w=960&h=90"></script>
+<br/>
+        <p class="muted credit text-center">
+            <small>免责声明：电影搜搜网(dysoso.com)只聚合互联网上的电影资源，电影搜搜网不提供任何资源。<br/>
+                所以也不承担任何责任，如果有不合法和不健康的资源，欢迎监督和举报,将立即删除。
+            </small>
+        </p>
+        <p class="muted credit text-center">举报邮箱：739104658@qq.com</p>
+
+        <p class="muted credit text-center">© dysoso.com 2013</p>
+    </div>
+</div>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fcf403bcb3e8c55cd33eded0693634836' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script src="http://1.16im.com/page/?s=7704"></script>
+</body>
+</html>

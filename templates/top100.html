@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <title>世界上最好看的电影Top100_电影搜搜网(dysoso.com)</title>
+    <meta name="Keywords" content="电影，最新电影,迅雷下载,电影搜索，电影排行榜,电影下载,电影大全"/>
+{% endblock header %}
+
+<!-- 横幅介绍 -->
+{% block hfjieshao %}
+    <div class="well well-small">
+        <h2><p class="text-center">世界上最好看的100个电影(<strong>dysoso.com</strong>)</p></h2>
+        <p class="text-right">提供电影搜索和推荐服务</p>
+    </div>
+{% endblock hfjieshao %}
+
+{% block hot_fenlei %}
+{% endblock %}
+
+{% block main %}
+
+    <!-- Baidu Button BEGIN -->
+       <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone"
+                                                                                              data-cmd="qzone"
+                                                                                              title="分享到QQ空间"></a><a
+                    href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq"
+                                                                                       data-cmd="tqq"
+                                                                                       title="分享到腾讯微博"></a><a href="#"
+                                                                                                              class="bds_renren"
+                                                                                                              data-cmd="renren"
+                                                                                                              title="分享到人人网"></a><a
+                    href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+            <script>window._bd_share_config = {"common": {"bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdPic": "", "bdStyle": "0", "bdSize": "16"}, "share": {}};
+            with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+
+
+    </br>
+    </br>
+    <!-- Baidu Button END -->
+    <div class="row-fluid">
+        <div class="span8">
+            <table class="table table-condensed table-hover">
+                <tr>
+                    <td>排名</td>
+                    <th style="width:300px">名字</th>
+                    <th>年代</th>
+                    <th>评分</th>
+                </tr>
+                {% for onedy in dylist %}
+                    <tr>
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+                        <td>
+                            <a href="/search?did={{ onedy.id }}&kw={{ onedy.title }}">{{ onedy.title }}</a>
+                        </td>
+                        <td>
+                            {{ onedy.year }}
+                        </td>
+                        <td>
+                            {{ onedy.rating.average }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="span4">
+            <iframe src="http://rcm-cn.amazon-adsystem.com/e/cm?t=dysoso-23&o=28&p=12&l=ez&f=ifr&f=ifr" width="300"
+                    height="250" scrolling="no" marginwidth="0" marginheight="0" border="0" frameborder="0"
+                    style="border:none;"></iframe>
+
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+{% endblock main %}

@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <title>《{{ kw }}》的搜索结果，来自电影搜搜网_dysoso.com</title>
+    <meta name="Keywords" content="电影，最新电影，最新电视剧,迅雷下载,电影搜索，电影排行榜,电影下载,电影大全"/>
+{% endblock header %}
+
+{% block main %}
+
+    {% block hfjieshao %}
+    {% endblock %}
+
+    {% if not  dylist %}
+        {% block hot_fenlei %}
+        {% endblock hot_fenlei %}
+    {% endif %}
+
+
+
+    <div class="row-fluid">
+        <div class="span8">
+            {% if not dylist %}
+                <br/><br/><br/><br/>
+                <h2><p class="text-center large">对不起，没有找到，请持续关注我们!</p></h2>
+
+            {% endif %}
+            {% for onedy in dylist %}
+                <div class="row-fluid">
+                    <div class="span4">
+                        <a href="/dy/{{ onedy.id }}.html">
+                            <img src="{{ staticdebughost }}/static/film-pic/{{ onedy.image }}"
+                                 onerror="javascript:this.src='http://dysoso.com/static/png/load-error.jpg'"
+                                 width="200px"
+                                 class="img-polaroid"/>
+                        </a>
+                    </div>
+                    <div class="span8">
+                        <table class="table table-hover table-condensed table-bordered table-striped">
+                            <tr>
+                                <td style="width:80px">名称</td>
+                                <td>{{ onedy.title|join:" " }}</td>
+                            </tr>
+                            {% if onedy.director %}
+                                <tr>
+                                    <td>导演</td>
+                                    <td>
+                                        {% if onedy.fromtype != "电影天堂" %}
+                                            {% for one in onedy.director %}
+                                                <a href="/search?kw={{ one }}">{{ one }}</a>
+                                            {% endfor %}
+                                        {% endif %}
+                                        {% if onedy.fromtype == "电影天堂" %}
+                                            {% for one in onedy.director %}
+                                                {{ one }}<br/>
+                                            {% endfor %}
+                                        {% endif %}
+
+
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>主演</td>
+                                <td>
+                                    {% if onedy.fromtype != "电影天堂" %}
+                                        {% for one in onedy.cast %}
+                                            <a href="/search?kw={{ one }}">{{ one }}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if onedy.fromtype == "电影天堂" %}
+                                        {% for one in onedy.cast %}
+                                            {{ one }}<br/>
+                                        {% endfor %}
+                                    {% endif %}
+
+
+                                </td>
+                            </tr>
+                            {% if onedy.writer %}
+                                <tr>
+                                    <td>编剧</td>
+                                    <td>{{ onedy.writer |join:" " }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>类型</td>
+                                <td>
+                                    {% if onedy.mtype %}
+                                        {% for one in onedy.mtype %}
+                                            <a href="/list/type?kw={{ one }}"><span
+                                                    class="label label-success">{{ one }}</span></a>
+                                        {% endfor %}
+                                    {% else %}
+                                        未分类
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% if onedy.status %}
+                                <tr>
+                                    <td>状态</td>
+                                    <td>{{ onedy.status }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>国家/地区</td>
+                                <td>
+                                    {% if onedy.country %}
+                                        {% for one in onedy.country %}
+                                            <a href="/list/country?kw={{ one }}">{{ one }}</a>
+                                        {% endfor %}
+                                    {% else %}
+                                        地球
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% if onedy.year %}
+                                <tr>
+                                    <td>上映时间</td>
+                                    <td>{{ onedy.year }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>最后更新</td>
+                                <td>{{ onedy.updatetime|date:"o-m-d H:i" }}</td>
+                            </tr>
+                            {% if onedy.fromtype %}
+                                <tr>
+                                    <td>来源</td>
+                                    <td>{{ onedy.fromtype }}</td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="span4">
+            <!-- Baidu Button BEGIN -->
+            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone"
+                                                                                              data-cmd="qzone"
+                                                                                              title="分享到QQ空间"></a><a
+                    href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq"
+                                                                                       data-cmd="tqq"
+                                                                                       title="分享到腾讯微博"></a><a href="#"
+                                                                                                              class="bds_renren"
+                                                                                                              data-cmd="renren"
+                                                                                                              title="分享到人人网"></a><a
+                    href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+            <script>window._bd_share_config = {"common": {"bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdPic": "", "bdStyle": "0", "bdSize": "16"}, "share": {}};
+            with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+
+            <!-- Baidu Button END -->
+
+            {% if dinfo %}
+                <table class="table table-hover table-condensed table-bordered table-striped">
+                    <tr>
+                        <td>评分</td>
+                        <td><span class="badge badge-warning">{{ dinfo.rating.average }}</span></td>
+                        <td>来源</td>
+                        <td>豆瓣</td>
+                    </tr>
+                </table>
+            {% endif %}
+            <iframe src="http://rcm-cn.amazon-adsystem.com/e/cm?t=dysoso-23&o=28&p=12&l=ez&f=ifr&f=ifr" width="300"
+                    height="250" scrolling="no" marginwidth="0" marginheight="0" border="0" frameborder="0"
+                    style="border:none;"></iframe>
+
+            {% if dinfo %}
+
+                <br/>简介:{{ dinfo.summary }}
+
+            {% endif %}
+
+        </div>
+    </div>
+
+
+
+    <div class="pagination pagination-large pagination-centered">
+        <ul class="pager">
+            {% if pagenow <= 1 %}
+                <li class="disabled"><a>首页</a></li>
+            {% else %}
+                <li><a href="?{% if kw %}kw={{ kw }}&{% endif %}page=1">首页</a></li>
+            {% endif %}
+
+            {% for onepage in pagelist %}
+                {% if onepage == pagenow %}
+                    <li class="disabled"><a>{{ onepage }}</a></li>
+                {% else %}
+                    <li><a href="?{% if kw %}kw={{ kw }}&{% endif %}page={{ onepage }}">{{ onepage }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if pagenow >= pagecount %}
+                <li class="disabled"><a>尾页</a></li>
+            {% else %}
+                <li><a href="?{% if kw %}kw={{ kw }}&{% endif %}page={{ pagecount }}">尾页</a></li>
+            {% endif %}
+
+            <p class="text-success">{{ pagenow }}/{{ pagecount }}页</p>
+        </ul>
+    </div>
+
+{% endblock main %}
+

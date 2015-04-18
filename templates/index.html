@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+        
+    {% block header %}
+        <title>电影搜搜网,dysoso.com,最新,最全的电影搜索网站,迅雷,迅雷下载</title>
+        <meta name="Keywords" content="电影，最新电影,迅雷下载,电影搜索，电影排行榜,电影下载,电影大全,最好看的电影"/>
+    {% endblock %}
+
+    {% block main %}
+    <div class="row-fluid">
+            <div class="span4">
+            <p class="label label-inverse">Top100<a href="/ph/top100.html">(更多)</a></p>
+            <ol>
+            {% for onedy in top100 %}
+                <li>
+                    <a href="/search?did={{ onedy.id }}&kw={{onedy.title}}">{{onedy.title}}</a>
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
+
+        <div class="span4">
+            <p class="label label-inverse">正在上映<a href="/ph/playing.html">(更多)</a></p>
+            <ol>
+              {% for onedy in nowplaying %}
+                <li>
+                    <a href="/search?did={{ onedy.id }}&kw={{onedy.title}}">{{onedy.title}}</a>
+                </li>
+            {% endfor %}
+
+            </ol>
+        </div>
+        <div class="span4">
+            <iframe src="http://rcm-cn.amazon-adsystem.com/e/cm?t=dysoso-23&o=28&p=12&l=ez&f=ifr&f=ifr" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" border="0" frameborder="0" style="border:none;"></iframe>
+
+        </div>
+    </div>
+    <div class="row-fluid">
+     <div class="span4">
+            <p class="label label-inverse">最新上线<a href="/list/newest.html">(更多)</a></p>
+            <ol>
+            {% for onedy in newlist  %}
+                <li>
+                  <a href="/dy/{{ onedy.id}}.html" >{{  onedy.title|first }}</a>{{ onedy.updatedate|date:"m-d"}}
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
+        <div class="span4">
+            <p class="label label-inverse">月排行<a href="/list/yuelist.html">(更多)</a></p>
+            <ol>
+            {% for onedy in hotmonth  %}
+                <li>
+                  <a href="/dy/{{ onedy.id}}.html" >{{ onedy.title |first }}</a>{{ onedy.updatedate|date:"m-d"}}
+                   
+                </li>
+            {% endfor %}
+            </ol>
+        </div>
+
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    {% endblock %}
+
+    {% block friend_link %}
+        <div id="friend_link">
+            <p>友情链接：</p>
+
+            <div class="center-block">
+                <a href="http://v.baidu.com">百度视频</a>
+                <a href="http://v.so.com">360影视</a>
+                <a href="http://www.2tu.cc">迅播影院</a>
+                <a href="http://www.poxiao.com">破晓电影</a>
+                <a href="http://www.dytt8.net">电影天堂</a>
+                <a href="http://tutuzx.com">兔兔在线</a>
+                <a href="http://v.2345.com">2345影视</a>
+                <a href="http://www.milaile.com">米来网</a>
+            </div>
+        </div>
+    {% endblock %}

@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+    <title>{{ title|join:" " }} 下载地址，由{{ fromtype|default:"互联网" }}提供,电影搜搜网(dysoso.com) </title>
+    <meta name=Keywords content="{{ title|join:" " }} 下载,dysoso.com">
+    <meta name=Description content="{{ title|join:" " }} 免费下载,迅雷下载,dysoso.com">
+{% endblock %}
+
+{% block hfjieshao %}
+{% endblock hfjieshao %}
+
+{% block hot_fenlei %}
+{% endblock hot_fenlei %}
+{% block main %}
+    <base target="_blank">
+    <div class="row-fluid">
+        <div class="span2">
+            <img src="{{ staticdebughost }}/static/film-pic/{{ image }}" class="img-polaroid"
+                 onerror="javascript:this.src='http://dysoso.com/static/png/load-error.jpg'"/>
+
+            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone"
+                                                                                              data-cmd="qzone"
+                                                                                              title="分享到QQ空间"></a><a
+                    href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq"
+                                                                                       data-cmd="tqq"
+                                                                                       title="分享到腾讯微博"></a><a href="#"
+                                                                                                              class="bds_renren"
+                                                                                                              data-cmd="renren"
+                                                                                                              title="分享到人人网"></a><a
+                    href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+            <script>window._bd_share_config = {"common": {"bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdPic": "", "bdStyle": "0", "bdSize": "16"}, "share": {}};
+            with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+        </div>
+        <div class="span6">
+            <table class="table table-hover table-condensed table-bordered table-striped">
+                <tr>
+                    <td style="width:80px;">名称</td>
+                    <td>{{ title |join:" " }}</td>
+                </tr>
+                {% if director %}
+                    <tr>
+                        <td>导演</td>
+                        <td>
+                            {% for one in director %}
+                                {% if fromtype != "电影天堂" %}
+                                    <a href="/search?kw={{ one }}">{{ one }}</a>
+                                {% endif %}
+                                {% if fromtype == "电影天堂" %}
+                                    {{ one }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if cast %}
+                    <tr>
+                        <td>主演</td>
+                        <td>
+                            {% if fromtype != "电影天堂" %}
+                                {% for one in cast %}
+                                    <a href="/search?kw={{ one }}">{{ one }}</a>
+                                {% endfor %}
+                            {% endif %}
+                            {% if fromtype == "电影天堂" %}
+                                {% for one in cast %}
+                                    {{ one }} <br/>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if writer %}
+                    <tr>
+                        <td>编剧</td>
+                        <td>
+                            {{ writer|join:" " }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        {% if mtype %}
+                            {% for one in mtype %}
+                                <a href="/list/type?kw={{ one }}"><span class="label label-success">{{ one }}</span></a>
+                            {% endfor %}
+                        {% else %}
+                            未分类
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>国家/地区</td>
+                    <td>
+                        {% if country %}
+                            {% for one in country %}
+                                <a href="/list/country?kw={{ one }}">{{ one }}</a>
+                            {% endfor %}
+                        {% else %}
+                            地球
+                        {% endif %}
+                    </td>
+                </tr>
+                {% if status %}
+                    <tr>
+                        <td>更新状态</td>
+                        <td>
+
+                            {{ status }}
+
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if year %}
+                    <tr>
+                        <td>上映时间</td>
+                        <td><a href="/list/year?kw={{ year }}">{{ year }}</a></td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>最后更新</td>
+                    <td>{{ updatetime|date:"o-m-d H:i" }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="span4">
+            <iframe src="http://rcm-cn.amazon-adsystem.com/e/cm?t=dysoso-23&o=28&p=12&l=ez&f=ifr&f=ifr" width="300"
+                    height="250" scrolling="no" marginwidth="0" marginheight="0" border="0" frameborder="0"
+                    style="border:none;"></iframe>
+
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span8">
+            <table class="table table-hover table-condensed table-bordered table-striped">
+                <tbody>
+                <tr>
+                    <th>
+                        <h3>资源数</h3>
+                    </th>
+                    <th>
+                        <h3>下载</h3>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <h3><p class="text-info">{{ downurllist|length }}个</p></h3>
+                    </td>
+                    <td>
+                        <a href="{{ url }}" class="btn btn-inverse btn-large">{{ fromtype|default:"互联网" }}</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <hr/>
+        </div>
+    </div>
+    <h3 class="disable">剧情介绍</h3>
+    {% if summary %}
+        {{ summary }}
+    {% else %}
+        暂无简介
+    {% endif %}
+
+
+    <br/>
+    <br/>
+    <br/>
+
+    <!--高速版，加载速度快，使用前需测试页面的兼容性-->
+    <div id="SOHUCS"></div>
+    <script>
+        (function () {
+            var appid = 'cyqTuOlqB',
+                    conf = 'prod_6e616e79d491ba42638558caf0364003';
+            var doc = document,
+                    s = doc.createElement('script'),
+                    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+            s.type = 'text/javascript';
+            s.charset = 'utf-8';
+            s.src = 'http://assets.changyan.sohu.com/upload/changyan.js?conf=' + conf + '&appid=' + appid;
+            h.insertBefore(s, h.firstChild);
+            window.SCS_NO_IFRAME = true;
+        })()
+    </script>
+
+    <br/>
+
+
+{% endblock main %}
