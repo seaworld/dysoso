@@ -8,10 +8,8 @@ from bson.objectid import ObjectId
 from dysoso import settings
 
 if settings.INLOCALE:
-    # con = pymongo.MongoClient(host='192.168.1.116')
-    # staticdebughost='http://192.168.1.116'
-    con = pymongo.MongoClient(host='dysoso.com')
-    staticdebughost='http://dysoso.com'
+    con = pymongo.MongoClient(host='192.168.1.116')
+    staticdebughost='http://192.168.1.116'
 else:
     con = pymongo.MongoClient()
     staticdebughost=''
@@ -43,7 +41,7 @@ def detailhtml(request,dyid):
         onedy["staticdebughost"]=staticdebughost
         today = datetime.date.today()
         db.viewinfo.update({"_id":onedy["_id"]},{"$inc":{"count":1,str(today.year)+str(today.month):1,str(today.year)+"."+str(today.month)+"."+str(today.day):1},"$set":{"updatedate":datetime.datetime.now()}},upsert = True)
-        one["url"] = one["url"].replace("http://www.ffdy.cc/","http://www.poxiao.com/")
+        onedy["url"] = onedy["url"].replace("http://www.ffdy.cc/","http://www.poxiao.com/")
     return render(request,'detail.html',onedy)
 
 def listhtml(request,search_type):

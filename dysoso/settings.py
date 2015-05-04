@@ -22,7 +22,7 @@ SECRET_KEY = 'v7f@n=x=t^qyvc-r0ii02_sbm+i8amjmcd9($)$$j38@j%%%z1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-INLOCALE = True
+INLOCALE = False
 
 ALLOWED_HOSTS = ['www.dysoso.com','dysoso.com','127.0.0.1','*']
 
